@@ -1,0 +1,239 @@
+.filtering-and-addBtn-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filtering-function {
+    display: flex;
+    padding: 6px;
+    border: 1px solid #DBDBDB;
+    border-radius: 10px;
+    /* gap: 24px; */
+    gap: 10px;
+    width: 785px;
+    height: 47px;
+}
+
+.filtering-dropdown {
+    color: #021526;
+    background-color: transparent;
+    border-color: transparent;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    padding: 8px 14px;
+    height: 35px;
+    display: flex;
+    align-items: center; 
+}
+
+.filtering-function .btn:hover {
+    color: #021526;
+    background-color: transparent;
+    border-color: transparent;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+}
+
+.filtering-function .dropdown {
+    height: 35px;
+}
+
+.filtering-function .btn.show {
+    background-color: #F3F3F3;
+    border-radius: 6px;
+    padding: 8px 14px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.listing_and_agent-button {
+    display: flex;
+    gap: 16px;
+    /* width: 449px; */
+}
+
+.listing_and_agent-button .listing {
+    background-color: #F93B1D;
+    color: #fff;
+    width: 230px;
+}
+
+
+.listing_and_agent-button .agent {
+    background-color: transparent;
+    border: 1px solid #F93B1D;
+    width: 203px;
+    color: #F93B1D;
+    /* font-family: FiraGO; */
+}
+
+.listing_and_agent-button .listing, .listing_and_agent-button .agent {
+    height: 47px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.filter-by-region-text {
+    font-family: "FiraGO", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    color: #021526;
+}
+
+.region-dropdown-menu {
+    width: 731px;
+    height: 284px;
+    border-radius: 10px;
+    border: 1px solid #DBDBDB;
+    background-color: #ffffff;
+    padding: 24px;
+    transform: translate3d(-6px, 47px, 0px) !important;
+}
+
+.filtering-function .dropdown-menu.show{
+    display: grid;
+}
+
+.checkbox-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 50px;
+    height: 128px;
+}
+
+.region-check-input {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #DBDBDB;
+    border-radius: 2px;
+}
+
+.checkbox-container .form-check-input:checked {
+    /* #45A849 */
+    background-color: #45A849;
+}
+
+.checkbox-container .form-check-input:focus {
+    border-color: #DBDBDB;
+    outline: 0;
+    box-shadow: none;
+}
+
+.filter-btn {
+    align-items: end;
+    display: flex;
+    justify-content: end;
+}
+
+.choose-btn {
+    background-color: #F93B1D;
+    width: 77px;
+    height: 33px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.price-dropdown-menu,  .area-dropdown-menu{
+    width: 382px;
+    height: 372px;
+    border-radius: 10px;
+    border: 1px solid #DBDBDB;
+    padding: 24px;
+    transform: translate3d(0px, 47px, 0px) !important;
+}
+
+.min_max-price-container, .min_max-area-container {
+    display: flex;
+    gap: 15px;
+}
+
+
+.price-container, .price-range-container, .area-container, .area-range-container {
+    display: grid;
+    gap: 24px;
+}
+
+.price-range-container, .area-range-container {
+    gap: 15px;
+}
+
+.input-group-text {
+    background-color: transparent;
+    border-left: none;
+}
+
+.price-input input, .area-input input {
+    border-right: none;
+}
+
+.rooms-dropdown-menu {
+    transform: translate3d(0px, 47px, 0px) !important;
+    width: 282px;
+    height: 198px;
+    border: 1px solid #DBDBDB;
+    border-radius: 10px;
+    padding: 24px;
+}
+
+.Quantitiy-of-rooms-input {
+    width: 41px;
+    height: 42px;
+    text-align: center;
+}
+
+.added-apartments {
+    padding-top: 24px;
+}
+
+.apartament-card {
+    box-shadow: 5px 5px 12px 0px #02152614;
+    width: 384px;
+    border-radius: 14px;
+}
+
+.apartament-card img {
+    border-radius: 14px 14px 0px 0px !important;
+    width: 384px;
+    height: 307px;
+    width: 384px;
+    border-radius: 14px;
+}
+.card-body {
+    border-radius: 0px 0px 14px 14px !important;
+    width: 384px;
+    height: 148px;
+    border: 1px solid #DBDBDB;
+    padding: 22px 25px;
+}
+
+.transaction-type {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: rgba(2, 21, 38, 0.5);
+    height: 26px;
+    border-radius: 15px;
+    padding: 6px;
+    color: #fff;
+    position: absolute;
+    font-size: 12px;
+    transform: translate3d(23px, 23px, 0px);
+}
+.transaction-type p {
+    margin-bottom: 0px;
+    padding: 6px;
+}
+
+.apt-info {
+    gap: 32px;
+}
