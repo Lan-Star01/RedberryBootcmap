@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-listing-page',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './main-listing-page.component.css'
 })
 export class MainListingPageComponent {
+  constructor(private router: Router) {}
 
+  navigateToApartmentDetails(apartmentId: string) {
+    this.router.navigate(['/apartment', apartmentId]);
+  }
 }

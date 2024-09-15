@@ -1,0 +1,202 @@
+.apartment-details-main-container {
+    height: 1665px;
+}
+
+#apartmentsInSimilarLocation {
+    margin-top: 90px;
+}
+.return-back-btn {
+    color: #021526;
+    height: 32px;
+    width: 32px;
+    margin-bottom: 30px;
+}
+
+.img-div {
+    width: 839px;
+    height: 670px;
+    border-radius: 14px 14px 0px 0px;
+}
+
+.transaction-type {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: rgba(2, 21, 38, 0.5);
+    height: 41px;
+    border-radius: 20px;
+    padding: 6px;
+    color: #fff;
+    position: absolute;
+    font-size: 20px;
+    font-weight: 500;
+    transform: translate3d(54px, 54px, 0px);
+}
+.transaction-type p {
+    margin-bottom: 0px;
+    padding: 6px;
+}
+
+.publication-date {
+    font-size: 16px;
+    font-weight: 400;
+    color: #808A93;
+}
+
+.apartment-details .price {
+    font-weight: 700;
+    font-size: 48px;
+    color: #021526;
+    height: 58px;
+}
+
+.img-and-information-container {
+    display: flex;
+    gap: 68px;
+}
+
+.apartment-details {
+    display: grid;
+    padding: 30px 0px;
+    height: 714px;
+    gap: 22px;
+}
+
+.apt-main-details {
+    gap: 4px;
+    height: 164px;
+    display: grid;
+}
+
+.apt-main-details li {
+    gap: 4px;
+    color: #808A93;
+    font-weight: 400;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.apt-description {
+    width: 503px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #808A93 ;
+}
+
+.del-apt {
+    border: 1px solid #676E76;
+    border-radius: 8px;
+    padding: 9px;
+    font-weight: 500;
+    font-size: 12px;
+    text-align: center;
+    width: 131px;
+    height: 34px;
+}
+
+.agent-info {
+    display: grid;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    width: 503px;
+    height: 174px;
+    padding: 23px;
+}
+
+.agent-identifier {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.agent-identifier img {
+    width: 72px;
+    height: 72px;
+    border-radius: 100px;
+}
+
+.agent-identifier p, .price {
+    margin-bottom: 0px;
+}
+
+.agent-name {
+    font-weight: 400;
+    font-size: 16px;
+    color: #021526;
+}
+
+.agent-title, .gmail-container, .phone-container {
+    font-weight: 400;
+    font-size: 14px;
+    color: #676E76;
+}
+
+.gmail-container, .phone-container {
+    color: #808A93 !important;
+    gap: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.publication-date {
+    display: flex;
+    justify-content: end;
+    padding-top: 8px;
+}
+
+.apartament-card {
+    box-shadow: 5px 5px 12px 0px #02152614;
+    width: 384px;
+    border-radius: 14px;
+}
+
+.apartament-card img {
+    border-radius: 14px 14px 0px 0px !important;
+    width: 384px;
+    height: 307px;
+    width: 384px;
+    border-radius: 14px;
+}
+.card-body {
+    border-radius: 0px 0px 14px 14px !important;
+    width: 384px;
+    height: 148px;
+    border: 1px solid #DBDBDB;
+    padding: 22px 25px;
+}
+
+.transaction-type {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: rgba(2, 21, 38, 0.5);
+    height: 26px;
+    border-radius: 15px;
+    padding: 6px;
+    color: #fff;
+    position: absolute;
+    font-size: 12px;
+    transform: translate3d(23px, 23px, 0px);
+}
+.transaction-type p {
+    margin-bottom: 0px;
+    padding: 6px;
+}
+
+.apt-info {
+    gap: 32px;
+}
+
+.carousel-item {
+    display: flex;
+    width: 1596px;
+    height: 455px;
+    gap: 20px;
+}
+
+.carousel-title {
+    font-weight: 500;
+    font-size: 32px;
+    margin-bottom: 2.5rem;
+}
