@@ -1,0 +1,228 @@
+.add-listing-page-container {
+    display: flex;
+    flex-direction: column;
+    width: 790px;
+    margin: auto;
+    gap: 40px;
+    padding-bottom: 70px;
+}
+
+.add-listing-form {
+    display: grid;
+    gap: 60px;
+}
+
+.add-listing-title-container {
+    text-align: center;
+}
+
+.add-listing-title {
+    color: #021526;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.add-listing-form-container p {
+    color: #1A1A1F;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.add-listing-form-container label, .add-listing-form-container .point {
+    color: #021526;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.add-listing-form-container .point {
+    font-weight: 400;
+}
+
+.location-input-container, .apartment-details-input-container {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.location-input-container, .apartment-details-input-container, .chechkbox-container {
+    gap: 20px;
+}
+
+.description-textarea {
+    height: 135px;
+    border: 1px solid #808A93;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.chechkbox-container {
+    gap: 5rem !important; 
+}
+  
+.custom-checkbox {
+    position: relative;
+    padding-left: 26px;
+    cursor: pointer;
+    font-size: 18px;
+    align-items: center;
+    display: flex;
+}
+  
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    transform: translate(-27px, -2px);
+    height: 18px;
+    width: 18px;
+    margin-top: 0px;
+    z-index: 999;
+}
+  
+.custom-checkbox .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    background-color: white;
+    border: 1px solid #021526;
+    border-radius: 50%;
+}
+  
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #fff;
+}
+  
+.custom-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+  
+.custom-checkbox .checkmark:after {
+    border-radius: 50%;
+    background: #021526;
+    top: 5px;
+    left: 4.8px;
+    width: 6px;
+    height: 6px;
+}
+ 
+.orange-btn {
+    padding: 10px 16px;
+    background-color: #F93B1D;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+}
+
+.orange-line-btn {
+    background-color: transparent;
+    border: 1px solid #F93B1D;
+    color: #F93B1D;
+    padding: 10px 16px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: end;
+    bottom: 0;
+    position: relative;
+    gap: 15px;
+}
+
+/* .upload-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+  }
+  .upload-area.has-image {
+    border: none;
+    padding: 0;
+  }
+  .upload-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  .remove-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+  } */
+
+  .image-upload-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.image-upload-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+    border: 1px dashed #2D3648;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.image-upload-label input[type="file"] {
+    display: none;
+}
+
+.upload-placeholder {
+    font-size: 2rem;
+    color: #999;
+}
+
+.image-preview {
+    width: 92px;
+    border-radius: 4px;
+    height: 82px;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.trash-button {
+    border-radius: 50px;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #021526;
+    padding: 0px;
+    text-align: center;
+    transform: translate(-18px, 34px);
+    z-index: 999;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

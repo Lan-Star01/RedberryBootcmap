@@ -14,4 +14,8 @@ export class MainListingPageComponent {
   navigateToApartmentDetails(apartmentId: string) {
     this.router.navigate(['/apartment', apartmentId]);
   }
+
+  navigateToAddListing() {
+    this.router.navigate(['/add-listing']);
+  }
 }

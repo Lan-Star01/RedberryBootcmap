@@ -1,0 +1,123 @@
+<section>
+  <div class="add-listing-page-container">
+    <div class="add-listing-title-container">
+      <p class="add-listing-title">ლისტინგის დამატება</p>
+    </div>
+    <div class="add-listing-form-container">
+      <form [formGroup]="addListingForm" class="add-listing-form">
+        <div class="transaction-type-container mb-3">
+          <p class="title">გარიგების ტიპი</p>
+          <div class="chechkbox-container d-flex">
+            <div class="custom-checkbox">
+              <input type="checkbox" class="form-check-input">
+              <span class="checkmark"></span>
+              <label class="form-check-label" for="forSale">
+                იყიდება
+              </label>
+            </div>
+            <div class="custom-checkbox">
+              <input type="checkbox">
+              <span class="checkmark"></span>
+              <label class="form-check-label" for="forRent">
+                ქირავდება
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="location-container">
+          <p class="title">მდებარეობა</p>
+          <div class="location-input-container">
+            <div class="mb-3">
+              <label for="address" class="form-label">მისამართი*</label>
+              <input type="text" class="form-control" id="address">
+              <span class="point"><i class="bi bi-check2"></i> მინიმუმ ორი სიმბოლო</span>
+            </div>
+            <div class="mb-3">
+              <label for="postal-code" class="form-label">საფოსტო ინდექსი*</label>
+              <input type="text" class="form-control" id="postal-code">
+              <span class="point"><i class="bi bi-check2"></i> მხოლოდ რიცხვები</span>
+            </div>
+            <div class="mb-3">
+              <label for="region" class="form-label">რეგიონი</label>
+              <select class="form-select region" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="city" class="form-label">ქალაქი</label>
+              <select class="form-select city" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="apartment-details-container">
+          <p class="title">ბინის დეტალები</p>
+          <div class="apartment-details-input-container">
+            <div class="mb-3">
+              <label for="price" class="form-label">ფასი</label>
+              <input type="number" class="form-control" id="price">
+              <span class="point"><i class="bi bi-check2"></i> მხოლოდ რიცხვები</span>
+            </div>
+            <div class="mb-3">
+              <label for="area" class="form-label">ფართობი</label>
+              <input type="number" class="form-control" id="area">
+              <span class="point"><i class="bi bi-check2"></i> მხოლოდ რიცხვები</span>
+            </div>
+            <div class="mb-3">
+              <label for="numberOfBedrooms" class="form-label">საძინებლის რაოდენობა</label>
+              <input type="number" class="form-control" id="numberOfBedrooms">
+              <span class="point"><i class="bi bi-check2"></i> მხოლოდ რიცხვები</span>
+            </div>
+          </div>
+          <div class="description-container">
+            <div class="mb-3">
+              <label for="description" class="form-label">აღწერა*</label>
+              <textarea class="form-control description-textarea" id="description" rows="3"></textarea>
+              <span class="point"><i class="bi bi-check2"></i> მინიმუმ ხუთი სიტყვა</span>
+            </div>
+          </div>
+          <div class="upload-img-container mb-3">
+            <label class="upload-img" for="upload-img">ატვირთე ფოტო*</label>
+            <div class="image-upload-wrapper">
+              <label for="imageUpload" class="image-upload-label">
+                  <input type="file" id="imageUpload" (change)="onFileSelected($event)" accept="image/*" />
+                  <ng-container *ngIf="!previewUrl; else preview">
+                      <span class="upload-placeholder">+</span>
+                  </ng-container>
+                  <ng-template #preview>
+                      <img [src]="previewUrl" alt="Image Preview" class="image-preview"/>
+                      <button type="button" class="btn btn-outline-dark trash-button" (click)="removeImage($event)">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1.75 3.5H2.91667H12.25" stroke="#021526" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M11.0834 3.50033V11.667C11.0834 11.9764 10.9605 12.2732 10.7417 12.492C10.5229 12.7107 10.2262 12.8337 9.91675 12.8337H4.08341C3.774 12.8337 3.47725 12.7107 3.25846 12.492C3.03966 12.2732 2.91675 11.9764 2.91675 11.667V3.50033M4.66675 3.50033V2.33366C4.66675 2.02424 4.78966 1.72749 5.00846 1.5087C5.22725 1.28991 5.524 1.16699 5.83341 1.16699H8.16675C8.47617 1.16699 8.77291 1.28991 8.99171 1.5087C9.2105 1.72749 9.33342 2.02424 9.33342 2.33366V3.50033" stroke="#021526" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M5.83325 6.41699V9.91699" stroke="#021526" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M8.16675 6.41699V9.91699" stroke="#021526" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          
+                      </button>
+                  </ng-template>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="agent-container">
+          <p class="title">აგენტი</p>
+          <div class="mb-3">
+            <label for="select-agent" class="form-label">აირჩიე</label>
+            <select class="form-select select-agent w-50" aria-label="Default select example">
+              <option selected>Open this select menu</option>
+              <option value="1">One</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="btn-container">
+      <button type="button" class="btn cancel orange-line-btn">გაუქმება</button>
+      <button type="button" class="btn add-listing orange-btn" (click)="onSubmit()">აგენტის დამატება</button>
+    </div>
+  </div>
+</section>

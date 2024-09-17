@@ -55,19 +55,23 @@
     /* width: 449px; */
 }
 
-.listing_and_agent-button .listing {
+.orange-btn {
+    padding: 10px 16px;
     background-color: #F93B1D;
     color: #fff;
-    width: 230px;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
 }
 
-
-.listing_and_agent-button .agent {
+.orange-line-btn {
     background-color: transparent;
     border: 1px solid #F93B1D;
-    width: 203px;
     color: #F93B1D;
-    /* font-family: FiraGO; */
+    padding: 10px 16px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 500;
 }
 
 .listing_and_agent-button .listing, .listing_and_agent-button .agent {
