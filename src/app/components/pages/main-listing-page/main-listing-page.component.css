@@ -55,25 +55,6 @@
     /* width: 449px; */
 }
 
-.orange-btn {
-    padding: 10px 16px;
-    background-color: #F93B1D;
-    color: #fff;
-    font-weight: 500;
-    font-size: 16px;
-    text-align: center;
-}
-
-.orange-line-btn {
-    background-color: transparent;
-    border: 1px solid #F93B1D;
-    color: #F93B1D;
-    padding: 10px 16px;
-    font-size: 16px;
-    text-align: center;
-    font-weight: 500;
-}
-
 .listing_and_agent-button .listing, .listing_and_agent-button .agent {
     height: 47px;
     padding: 10px;
@@ -89,6 +70,7 @@
     font-weight: 500;
     text-align: left;
     color: #021526;
+    height: 26px;
 }
 
 .region-dropdown-menu {
@@ -109,7 +91,8 @@
     display: grid;
     grid-template-columns: auto auto auto;
     column-gap: 50px;
-    height: 128px;
+    row-gap: 10px;
+    height: 132px;
 }
 
 .region-check-input {
@@ -240,4 +223,39 @@
 
 .apt-info {
     gap: 32px;
+}
+
+.add-agent-form {
+    display: grid;
+    gap: 77px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: end;
+    bottom: 0;
+    position: relative;
+    gap: 15px;
+}
+
+.inputs-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 33px;
+}
+.modal-dialog {
+    max-width: 1009px;
+    max-height: 784px;
+}
+
+.add-agent-modal-container {
+    width: 799px;
+    margin: auto;
+    gap: 52px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-body {
+    padding: 90px 30px;
 }
