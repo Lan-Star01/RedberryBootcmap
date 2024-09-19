@@ -179,7 +179,9 @@
 }
 
 .added-apartments {
-    padding-top: 24px;
+    padding-top: 30px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }
 
 .apartament-card {

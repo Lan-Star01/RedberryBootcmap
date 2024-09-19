@@ -14,5 +14,4 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class LayoutComponent {
 
-  token ='9d0a52a6-430e-4970-8364-9fd7a8de23fa'
 }

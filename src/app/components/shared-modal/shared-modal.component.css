@@ -1,0 +1,34 @@
+.add-agent-form {
+    display: grid;
+    gap: 77px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: end;
+    bottom: 0;
+    position: relative;
+    gap: 15px;
+}
+
+.inputs-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 33px;
+}
+.modal-dialog {
+    max-width: 1009px;
+    max-height: 784px;
+}
+
+.add-agent-modal-container {
+    width: 799px;
+    margin: auto;
+    gap: 52px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-body {
+    padding: 90px 30px;
+}

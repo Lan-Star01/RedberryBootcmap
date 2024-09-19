@@ -1,0 +1,70 @@
+<div class="modal fade" id="addAgentModal" tabindex="-1" aria-labelledby="addAgentModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="add-agent-modal-container">
+            <div class="add-agent-title-container">
+              <p class="add-agent-title">აგენტის დამატება</p>
+            </div>
+            <div class="add-agent-form-container">
+              <form [formGroup]="addAgentForm" class="add-agent-form form">
+                
+                <div class="form-container">
+                  <div class="inputs-container">
+                    <div class="mb-4">
+                      <label for="name" class="form-label">სახელი*</label>
+                      <input type="text" class="form-control" id="name">
+                      <span class="point"><i class="bi bi-check2"></i> მინიმუმ ორი სიმბოლო</span>
+                    </div>
+                    <div class="mb-4">
+                      <label for="lastName" class="form-label">გვარი</label>
+                      <input type="text" class="form-control" id="lastName">
+                      <span class="point"><i class="bi bi-check2"></i> მინიმუმ ორი სიმბოლო</span>
+                    </div>
+                    <div class="mb-4">
+                      <label for="email" class="form-label">ელ-ფოსტა*</label>
+                      <input type="email" class="form-control" id="email">
+                      <span class="point"><i class="bi bi-check2"></i> გამოიყენეთ &#64;redberry.ge ფოსტა </span>
+                    </div>
+                    <div class="mb-4">
+                      <label for="phoneNumber" class="form-label">ტელეფონის ნომერი*</label>
+                      <input type="number" class="form-control" id="phoneNumber">
+                      <span class="point"><i class="bi bi-check2"></i> მხოლოდ რიცხვები</span>
+                    </div>
+                  </div>
+                  <div class="upload-img-container mb-4">
+                    <label class="upload-img" for="upload-img">ატვირთე ფოტო*</label>
+                    <div class="image-upload-wrapper">
+                      <label for="imageUpload" class="image-upload-label">
+                          <input type="file" id="imageUpload" (change)="onFileSelected($event)" accept="image/*" />
+                          <ng-container *ngIf="!previewUrl; else preview">
+                              <span class="upload-placeholder">+</span>
+                          </ng-container>
+                          <ng-template #preview>
+                              <img [src]="previewUrl" alt="Image Preview" class="image-preview"/>
+                              <button type="button" class="btn btn-outline-dark trash-button" (click)="removeImage($event)">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1.75 3.5H2.91667H12.25" stroke="#021526" stroke-linecap="round" stroke-linejoin="round"/>
+                                  <path d="M11.0834 3.50033V11.667C11.0834 11.9764 10.9605 12.2732 10.7417 12.492C10.5229 12.7107 10.2262 12.8337 9.91675 12.8337H4.08341C3.774 12.8337 3.47725 12.7107 3.25846 12.492C3.03966 12.2732 2.91675 11.9764 2.91675 11.667V3.50033M4.66675 3.50033V2.33366C4.66675 2.02424 4.78966 1.72749 5.00846 1.5087C5.22725 1.28991 5.524 1.16699 5.83341 1.16699H8.16675C8.47617 1.16699 8.77291 1.28991 8.99171 1.5087C9.2105 1.72749 9.33342 2.02424 9.33342 2.33366V3.50033" stroke="#021526" stroke-linecap="round" stroke-linejoin="round"/>
+                                  <path d="M5.83325 6.41699V9.91699" stroke="#021526" stroke-linecap="round" stroke-linejoin="round"/>
+                                  <path d="M8.16675 6.41699V9.91699" stroke="#021526" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                  
+                              </button>
+                          </ng-template>
+                      </label>
+                    </div>
+                  </div>
+                </div>   
+                <div class="btn-container">
+                  <button type="button" class="btn cancel orange-line-btn" (click)="onCancel()">გაუქმება</button>
+                  <button type="button" class="btn add-listing orange-btn" (click)="onSubmit()">აგენტის დამატება</button>
+                </div>         
+              </form>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+</div>

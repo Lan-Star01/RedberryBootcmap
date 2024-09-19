@@ -39,17 +39,30 @@
             </div>
             <div class="mb-3">
               <label for="region" class="form-label">რეგიონი</label>
-              <select class="form-select region" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-              </select>
+              <div class="dropdown">
+                <button class="btn dropdown-toggle select-type-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ selectedRegion ? selectedRegion.name : 'რეგიონი' }}
+                </button>
+                <div class="dropdown-menu region-dropdown-menu select-type-dropdown-menu">
+                  <div class="region-list-container">
+                    <li *ngFor="let region of regions" [id]="region.id" (click)="selectRegion(region)">{{region.name}}</li>
+                  </div>
+                </div>
+              </div>
             </div>
+        
             <div class="mb-3">
               <label for="city" class="form-label">ქალაქი</label>
-              <select class="form-select city" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-              </select>
+              <div class="dropdown">
+                <button class="btn dropdown-toggle select-type-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ selectedCity ? selectedCity.name : 'ქალაქი' }}
+                </button>
+                <div class="dropdown-menu city-dropdown-menu select-type-dropdown-menu">
+                  <div class="city-list-container" *ngIf="selectedRegion">
+                    <li *ngFor="let city of filteredCities" [id]="city.id" (click)="selectCity(city)">{{city.name}}</li>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -105,18 +118,32 @@
         </div>
         <div class="agent-container">
           <p class="title">აგენტი</p>
-          <div class="mb-3">
+          <div class="mb-3 w-50">
             <label for="select-agent" class="form-label">აირჩიე</label>
-            <select class="form-select select-agent w-50" aria-label="Default select example">
-              <option selected>Open this select menu</option>
-              <option value="1">One</option>
-            </select>
+            <div class="dropdown">
+              <button class="btn dropdown-toggle select-type-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ selectedAgent ? selectedAgent.name + ' ' + selectedAgent.surname : 'აგენტი' }}
+              </button>
+              <div class="dropdown-menu agent-dropdown-menu select-type-dropdown-menu">
+                <div class="region-list-container">
+                  <button class="btn add-agent-btn w-100" type="button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#2D3648" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M12 8V16" stroke="#2D3648" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M8 12H16" stroke="#2D3648" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      დაამატე აგენტი                      
+                  </button>
+                  <li *ngFor="let agent of agents" [id]="agent.id" (click)="selectAgent(agent)">{{agent.name}} {{agent.surname}}</li>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </form>
     </div>
     <div class="btn-container">
-      <button type="button" class="btn cancel orange-line-btn">გაუქმება</button>
+      <button type="button" class="btn cancel orange-line-btn" (click)="navigateToMainPage()">გაუქმება</button>
       <button type="button" class="btn add-listing orange-btn" (click)="onSubmit()">აგენტის დამატება</button>
     </div>
   </div>

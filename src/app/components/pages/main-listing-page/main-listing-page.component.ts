@@ -1,29 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BackendAPIService } from '../../backend-api.service';
 import { HttpClientModule } from '@angular/common/http';
+import bootstrap from '../../../../main.server';
+import { SharedModalComponent } from "../../shared-modal/shared-modal.component";
 
 @Component({
   selector: 'app-main-listing-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, SharedModalComponent],
   templateUrl: './main-listing-page.component.html',
   styleUrl: './main-listing-page.component.css'
 })
 export class MainListingPageComponent implements OnInit{
 
   constructor(private fb: FormBuilder, private router: Router, private APIServices: BackendAPIService) {
-    this.myForm();
   }
 
   regions: any[] = [];
   cities: any[] = [];
   selectedRegionIds: number[] = [];
+  realEstates: any[] = [];
 
   ngOnInit(): void {
     this.getRegions();
+    this.getRealEstates();
   }
 
   navigateToApartmentDetails(apartmentId: string) {
@@ -34,44 +37,32 @@ export class MainListingPageComponent implements OnInit{
     this.router.navigate(['/add-listing']);
   }
 
-  addAgentForm!: FormGroup;
+  @ViewChild('addAgentModal') modalElement!: ElementRef;
 
-  myForm() {
-    this.addAgentForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: [null, [Validators.required, Validators.min(0)]],
-    })
-  }
-  
-  onSubmit() {
-    if (this.addAgentForm.valid) {
-      console.log(this.addAgentForm.value);
-    } else {
-      Object.keys(this.addAgentForm.controls).forEach(key => {
-        const control = this.addAgentForm.get(key);
-        control?.markAsTouched();
-      });
+  openModal() {
+    const modalElement = document.getElementById('addAgentModal');
+    if (modalElement) {
+      const modal = new (window as any).bootstrap.Modal(modalElement);
+      modal.show();
     }
   }
 
-  previewUrl: string | ArrayBuffer | null = null;
-
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.previewUrl = reader.result;
-      };
-      reader.readAsDataURL(file);
+  closeModal() {
+    const modalElement = this.modalElement.nativeElement;
+    if (modalElement) {
+      const modal = new (window as any).bootstrap.Modal(modalElement);
+      modal.hide();
     }
   }
 
-  removeImage(event: Event): void {
-    event.preventDefault();
-    this.previewUrl = null;
+  //get realestates 
+  getRealEstates(): void {
+    this.APIServices.getRealEstates().subscribe(
+      (data) => {
+        this.realEstates = data;
+        console.log(data)
+      }
+    )
   }
   
   //get regions
@@ -79,7 +70,6 @@ export class MainListingPageComponent implements OnInit{
     this.APIServices.getRegions().subscribe(
       (data) => {
         this.regions = data;
-        console.log(data)
       }
     )
   }
