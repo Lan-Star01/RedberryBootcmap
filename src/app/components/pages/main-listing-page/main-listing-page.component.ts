@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BackendAPIService, City, Region } from '../../backend-api.service';
+import { BackendAPIService, City, Region } from '../../services/backend-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import bootstrap from '../../../../main.server';
 import { SharedModalComponent } from "../../shared-modal/shared-modal.component";

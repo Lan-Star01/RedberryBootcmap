@@ -151,7 +151,7 @@
 <section id="addedApartments-section">
     <div class="added-apartments">
       <div class="apartament-card" *ngFor="let apartment of realEstates" [attr.data-id]="apartment.id">
-        <span class="transaction-type"><p>{{ apartment.is_rental === 0 ? 'ქირავდება' : 'იყიდება' }}</p></span>
+        <span class="transaction-type"><p>{{ apartment.is_rental === 1 ? 'ქირავდება' : 'იყიდება' }}</p></span>
         <img [src]="apartment.image" class="card-img-top" alt="Apartment image" sizes="(max-width: 300px) 100vw, 300px">
         <div class="card-body">
           <h5>{{apartment.price}} ₾</h5>

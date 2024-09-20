@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AgentBodyParameters, BackendAPIService } from '../backend-api.service';
+import { AgentBodyParameters, BackendAPIService } from '../services/backend-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SharedModalService } from '../services/shared-modal.service';
@@ -56,10 +56,6 @@ export class SharedModalComponent implements AfterViewInit, OnDestroy {
       }
 
       this.postAgents(formData);
-      this.addAgentForm.reset();
-      this.selectedFile = null;
-      this.previewUrl = null;
-      this.modalService.closeModal();
     
     } else {
       this.markFormGroupTouched(this.addAgentForm);
@@ -101,7 +97,10 @@ export class SharedModalComponent implements AfterViewInit, OnDestroy {
   postAgents(agentData: FormData): void {
     this.APIServices.postAgents(agentData).subscribe(
       response => {
-        console.log("Agent added successfully", response);
+        this.addAgentForm.reset();
+        this.selectedFile = null;
+        this.previewUrl = null;
+        this.modalService.closeModal();
       },
       error => {
         console.error("Error adding agent", error);

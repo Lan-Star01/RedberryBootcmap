@@ -9,6 +9,11 @@
     border-radius: 10px;
 }
 
+.orange-btn:hover, .orange-btn:active {
+    background-color: #DF3014;
+    color: white;
+}
+
 .orange-line-btn {
     background-color: transparent;
     border: 1px solid #F93B1D;
@@ -18,6 +23,11 @@
     text-align: center;
     font-weight: 500;
     border-radius: 10px;
+}
+
+.orange-line-btn:hover, .orange-line-btn:active {
+    background-color: #F93B1D;
+    color: white;
 }
 
 .image-upload-wrapper {
@@ -94,4 +104,16 @@
 
 .was-validated .form-control:invalid, .form-control.is-invalid {
     background-image: none;
+}
+
+.form-control.is-invalid {
+  border-color: #F93B1D;
+}
+
+.text-danger {
+  color: #F93B1D;
+}
+
+.point.text-danger i {
+  color: #F93B1D;;
 }

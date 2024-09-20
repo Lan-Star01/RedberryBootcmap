@@ -37,14 +37,6 @@
     opacity: 1;
 }
 
-.form-control.is-invalid {
-  border-color: #dc3545;
-}
-
-.text-danger {
-  color: #dc3545;
-}
-
-.point.text-danger i {
-  color: #dc3545;
+.bi-check2 {
+  color: #28a745;
 }

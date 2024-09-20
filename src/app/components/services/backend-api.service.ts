@@ -43,6 +43,10 @@ export class BackendAPIService {
   postAgents(body: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/agents`, body, { headers: this.headers });
   }
+
+  postRealEstates(body: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/real-estates`, body, { headers: this.headers });
+  }
 }
 
 // interfaces

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Agent, BackendAPIService, City, Region } from '../../backend-api.service';
+import { Agent, BackendAPIService, City, Region } from '../../services/backend-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SharedModalService } from '../../services/shared-modal.service';
@@ -15,7 +15,7 @@ import { SharedModalComponent } from "../../shared-modal/shared-modal.component"
   styleUrl: './add-listing-page.component.css'
 })
 export class AddListingPageComponent implements OnInit {
-  constructor(private fb: FormBuilder, private APIServices: BackendAPIService, private router: Router, private modalService: SharedModalService) {
+  constructor(private fb: FormBuilder, private APIServices: BackendAPIService, private router: Router, public modalService: SharedModalService) {
     this.myForm();
   }
   
@@ -29,6 +29,7 @@ export class AddListingPageComponent implements OnInit {
   agents: Agent[] = [];
   addListingForm!: FormGroup;
   previewUrl: string | ArrayBuffer | null = null;
+  selectedFile: File | null = null;
 
   ngOnInit(): void {
     this.getRegions();
@@ -55,12 +56,50 @@ export class AddListingPageComponent implements OnInit {
   onSubmit() {
     if (this.addListingForm.valid) {
       console.log(this.addListingForm.value);
+      const formValue = this.addListingForm.value;
+      const formData = new FormData();
+      let isRental: number;
+
+      if (formValue.forRent) {
+          isRental = 1;
+      } else if (formValue.forSale) {
+          isRental = 0;
+      } else {
+          isRental = -1;
+      }
+      
+      formData.append('address', formValue.address);
+      if (this.selectedFile instanceof File) {
+        formData.append('image', this.selectedFile);
+      }
+      formData.append('region_id', this.selectedRegion?.id?.toString() ?? '');
+      formData.append('description', formValue.description);
+      formData.append('city_id', this.selectedCity?.id?.toString() ?? '');
+      formData.append('zip_code', formValue.postalCode);
+      formData.append('price', formValue.price);
+      formData.append('area', formValue.area);
+      formData.append('bedrooms', formValue.numberOfBedrooms);
+      formData.append('is_rental', isRental.toString());
+      formData.append('agent_id', this.selectedAgent?.id?.toString() ?? '');
+      
+
+      this.postRealEstates(formData);
+      
+      
+
     } else {
-      Object.keys(this.addListingForm.controls).forEach(key => {
-        const control = this.addListingForm.get(key);
-        control?.markAsTouched();
-      });
+      this.markFormGroupTouched(this.addListingForm);
     }
+  }
+
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 
   openModal() {
@@ -75,6 +114,7 @@ export class AddListingPageComponent implements OnInit {
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
+      this.selectedFile = file;
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrl = reader.result;
@@ -148,6 +188,23 @@ export class AddListingPageComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching regions:', error);
+      }
+    )
+  }
+
+  postRealEstates(realEstatesData: FormData): void {
+    this.APIServices.postRealEstates(realEstatesData).subscribe (
+      response => {
+        console.log("Agent added successfully", response);
+        this.addListingForm.reset();
+        this.selectedFile = null;
+        this.previewUrl = null;
+        this.selectedRegion = null;
+        this.selectedCity = null;
+        this.selectedAgent = null;
+      },
+      error => {
+        console.error("Error adding agent", error);
       }
     )
   }

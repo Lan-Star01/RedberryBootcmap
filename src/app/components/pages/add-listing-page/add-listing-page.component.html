@@ -9,14 +9,14 @@
           <p class="title">გარიგების ტიპი</p>
           <div class="chechkbox-container d-flex">
             <div class="custom-checkbox">
-              <input type="checkbox" class="form-check-input">
+              <input type="checkbox" class="form-check-input" formControlName="forSale">
               <span class="checkmark"></span>
               <label class="form-check-label" for="forSale">
                 იყიდება
               </label>
             </div>
             <div class="custom-checkbox">
-              <input type="checkbox">
+              <input type="checkbox" class="form-check-input" formControlName="forRent">
               <span class="checkmark"></span>
               <label class="form-check-label" for="forRent">
                 ქირავდება
@@ -29,13 +29,17 @@
           <div class="location-input-container">
             <div class="mb-3">
               <label for="address" class="form-label">მისამართი*</label>
-              <input type="text" class="form-control" id="address">
-              <span class="point"><i class="bi bi-check2"></i> მინიმუმ ორი სიმბოლო</span>
+              <input type="text" class="form-control" [ngClass]="{'is-invalid': addListingForm.get('address')?.invalid && addListingForm.get('address')?.touched}" formControlName="address" id="address">
+              <span class="point" [ngClass]="{'text-danger': addListingForm.get('address')?.invalid && (addListingForm.get('address')?.dirty || addListingForm.get('address')?.touched)}">
+                <i class="bi bi-check2"></i> მინიმუმ ორი სიმბოლო
+              </span>
             </div>
             <div class="mb-3">
               <label for="postal-code" class="form-label">საფოსტო ინდექსი*</label>
-              <input type="text" class="form-control" id="postal-code">
-              <span class="point"><i class="bi bi-check2"></i> მხოლოდ რიცხვები</span>
+              <input type="text" class="form-control" [ngClass]="{'is-invalid': addListingForm.get('postalCode')?.invalid && addListingForm.get('postalCode')?.touched}" formControlName="postalCode" id="postal-code">
+              <span class="point" [ngClass]="{'text-danger': addListingForm.get('postalCode')?.invalid && (addListingForm.get('postalCode')?.dirty || addListingForm.get('postalCode')?.touched)}">
+                <i class="bi bi-check2"></i> მხოლოდ რიცხვები
+              </span>
             </div>
             <div class="mb-3">
               <label for="region" class="form-label">რეგიონი</label>
@@ -71,25 +75,33 @@
           <div class="apartment-details-input-container">
             <div class="mb-3">
               <label for="price" class="form-label">ფასი</label>
-              <input type="number" class="form-control" id="price">
-              <span class="point"><i class="bi bi-check2"></i> მხოლოდ რიცხვები</span>
+              <input type="number" class="form-control" [ngClass]="{'is-invalid': addListingForm.get('price')?.invalid && addListingForm.get('price')?.touched}" formControlName="price" id="price">
+              <span class="point" [ngClass]="{'text-danger': addListingForm.get('price')?.invalid && (addListingForm.get('price')?.dirty || addListingForm.get('price')?.touched)}">
+                <i class="bi bi-check2"></i> მხოლოდ რიცხვები
+              </span>
             </div>
             <div class="mb-3">
               <label for="area" class="form-label">ფართობი</label>
-              <input type="number" class="form-control" id="area">
-              <span class="point"><i class="bi bi-check2"></i> მხოლოდ რიცხვები</span>
+              <input type="number" class="form-control" [ngClass]="{'is-invalid': addListingForm.get('area')?.invalid && addListingForm.get('area')?.touched}" formControlName="area" id="area">
+              <span class="point" [ngClass]="{'text-danger': addListingForm.get('area')?.invalid && (addListingForm.get('area')?.dirty || addListingForm.get('area')?.touched)}">
+                <i class="bi bi-check2"></i> მხოლოდ რიცხვები
+              </span>
             </div>
             <div class="mb-3">
               <label for="numberOfBedrooms" class="form-label">საძინებლის რაოდენობა</label>
-              <input type="number" class="form-control" id="numberOfBedrooms">
-              <span class="point"><i class="bi bi-check2"></i> მხოლოდ რიცხვები</span>
+              <input type="number" class="form-control" [ngClass]="{'is-invalid': addListingForm.get('numberOfBedrooms')?.invalid && addListingForm.get('numberOfBedrooms')?.touched}" formControlName="numberOfBedrooms" id="numberOfBedrooms">
+              <span class="point" [ngClass]="{'text-danger': addListingForm.get('numberOfBedrooms')?.invalid && (addListingForm.get('numberOfBedrooms')?.dirty || addListingForm.get('numberOfBedrooms')?.touched)}">
+                <i class="bi bi-check2"></i> მხოლოდ რიცხვები
+              </span>
             </div>
           </div>
           <div class="description-container">
             <div class="mb-3">
               <label for="description" class="form-label">აღწერა*</label>
-              <textarea class="form-control description-textarea" id="description" rows="3"></textarea>
-              <span class="point"><i class="bi bi-check2"></i> მინიმუმ ხუთი სიტყვა</span>
+              <textarea class="form-control description-textarea" [ngClass]="{'is-invalid': addListingForm.get('description')?.invalid && addListingForm.get('description')?.touched}" formControlName="description" id="description" rows="3"></textarea>
+              <span class="point" [ngClass]="{'text-danger': addListingForm.get('description')?.invalid && (addListingForm.get('description')?.dirty || addListingForm.get('description')?.touched)}">
+                <i class="bi bi-check2"></i> მინიმუმ ხუთი სიტყვა
+              </span>
             </div>
           </div>
           <div class="upload-img-container mb-3">
@@ -144,9 +156,9 @@
     </div>
     <div class="btn-container">
       <button type="button" class="btn cancel orange-line-btn" (click)="navigateToMainPage()">გაუქმება</button>
-      <button type="button" class="btn add-listing orange-btn" (click)="onSubmit()">აგენტის დამატება</button>
+      <button type="button" class="btn add-listing orange-btn" (click)="onSubmit()">დაამატე ლისტინგი</button>
     </div>
   </div>
 </section>
 
-<app-shared-modal *ngIf="isModalOpen$ | async"></app-shared-modal>
+<app-shared-modal *ngIf="modalService.isModalOpen()"></app-shared-modal>
