@@ -1,5 +1,5 @@
-<div class="modal fade" id="addAgentModal" tabindex="-1" aria-labelledby="addAgentModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="addAgentModal" tabindex="-1" role="dialog" aria-labelledby="addAgentModal" aria-hidden="true" [ngStyle]="{'display': modalService.isModalOpen() ? 'block' : 'none'}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-body">
           <div class="add-agent-modal-container">
@@ -12,24 +12,32 @@
                 <div class="form-container">
                   <div class="inputs-container">
                     <div class="mb-4">
-                      <label for="name" class="form-label">სახელი*</label>
-                      <input type="text" class="form-control" id="name">
-                      <span class="point"><i class="bi bi-check2"></i> მინიმუმ ორი სიმბოლო</span>
+                      <label for="firstname" class="form-label">სახელი*</label>
+                      <input type="text" class="form-control" [ngClass]="{'is-invalid': addAgentForm.get('firstname')?.invalid && (addAgentForm.get('firstname')?.dirty || addAgentForm.get('firstname')?.touched)}" formControlName="firstname" id="firstname">
+                      <span class="point" [ngClass]="{'text-danger': addAgentForm.get('firstname')?.invalid && (addAgentForm.get('firstname')?.dirty || addAgentForm.get('firstname')?.touched)}">
+                        <i class="bi bi-check2"></i> მინიმუმ ორი სიმბოლო
+                      </span>
                     </div>
                     <div class="mb-4">
                       <label for="lastName" class="form-label">გვარი</label>
-                      <input type="text" class="form-control" id="lastName">
-                      <span class="point"><i class="bi bi-check2"></i> მინიმუმ ორი სიმბოლო</span>
+                      <input type="text" class="form-control" [ngClass]="{'is-invalid': addAgentForm.get('lastName')?.invalid && (addAgentForm.get('lastName')?.dirty || addAgentForm.get('lastName')?.touched)}" formControlName="lastName" id="lastName">
+                      <span class="point" [ngClass]="{'text-danger': addAgentForm.get('lastName')?.invalid && (addAgentForm.get('lastName')?.dirty || addAgentForm.get('lastName')?.touched)}">
+                        <i class="bi bi-check2"></i> მინიმუმ ორი სიმბოლო
+                      </span>
                     </div>
                     <div class="mb-4">
                       <label for="email" class="form-label">ელ-ფოსტა*</label>
-                      <input type="email" class="form-control" id="email">
-                      <span class="point"><i class="bi bi-check2"></i> გამოიყენეთ &#64;redberry.ge ფოსტა </span>
+                      <input type="email" class="form-control" [ngClass]="{'is-invalid': addAgentForm.get('email')?.invalid && (addAgentForm.get('email')?.dirty || addAgentForm.get('email')?.touched)}" formControlName="email" id="email">
+                      <span class="point" [ngClass]="{'text-danger': addAgentForm.get('email')?.invalid && (addAgentForm.get('email')?.dirty || addAgentForm.get('email')?.touched)}">
+                        <i class="bi bi-check2"></i> გამოიყენეთ &#64;redberry.ge ფოსტა
+                      </span>
                     </div>
                     <div class="mb-4">
                       <label for="phoneNumber" class="form-label">ტელეფონის ნომერი*</label>
-                      <input type="number" class="form-control" id="phoneNumber">
-                      <span class="point"><i class="bi bi-check2"></i> მხოლოდ რიცხვები</span>
+                      <input type="text" class="form-control" [ngClass]="{'is-invalid': addAgentForm.get('phoneNumber')?.invalid && (addAgentForm.get('phoneNumber')?.dirty || addAgentForm.get('phoneNumber')?.touched)}" formControlName="phoneNumber" id="phoneNumber">
+                      <span class="point" [ngClass]="{'text-danger': addAgentForm.get('phoneNumber')?.invalid && (addAgentForm.get('phoneNumber')?.dirty || addAgentForm.get('phoneNumber')?.touched)}">
+                        <i class="bi bi-check2"></i> მხოლოდ რიცხვები
+                      </span>
                     </div>
                   </div>
                   <div class="upload-img-container mb-4">

@@ -181,4 +181,4 @@
     </div>
 </section>
 
-<app-shared-modal [closeModal]="closeModal"></app-shared-modal>
+<app-shared-modal *ngIf="modalService.isModalOpen()"></app-shared-modal>

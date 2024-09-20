@@ -1,8 +1,10 @@
-import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BackendAPIService } from '../backend-api.service';
+import { AgentBodyParameters, BackendAPIService } from '../backend-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { SharedModalService } from '../services/shared-modal.service';
+
 
 @Component({
   selector: 'app-shared-modal',
@@ -11,55 +13,72 @@ import { CommonModule } from '@angular/common';
   templateUrl: './shared-modal.component.html',
   styleUrl: './shared-modal.component.css'
 })
-export class SharedModalComponent implements AfterViewInit {
-  constructor(private fb: FormBuilder, private APIServices: BackendAPIService, private elementRef: ElementRef) {
+export class SharedModalComponent implements AfterViewInit, OnDestroy {
+  constructor(private fb: FormBuilder, private APIServices: BackendAPIService, private elementRef: ElementRef, public modalService: SharedModalService) {
     this.myForm();
   }
 
   addAgentForm!: FormGroup;
   @Input() closeModal!: () => void;
   previewUrl: string | ArrayBuffer | null = null;
+  selectedFile: File | null = null;
   
 
   ngAfterViewInit() {
-    const modalElement = this.elementRef.nativeElement.querySelector('#addAgentModal');
-    const modal = new (window as any).bootstrap.Modal(modalElement);
 
-    (this as any).modalInstance = modal;
+  }
+
+  ngOnDestroy() {
+    this.modalService.closeModal();
   }
 
   myForm() {
     this.addAgentForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
+      firstname: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: [null, [Validators.required, Validators.min(0)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[5][0-9]*$')]],
+      
     })
   }
   
   onSubmit() {
     if (this.addAgentForm.valid) {
-      console.log(this.addAgentForm.value);
+      const formValue = this.addAgentForm.value;
+      const formData = new FormData();
+      
+      formData.append('name', formValue.firstname);
+      formData.append('surname', formValue.lastName);
+      formData.append('email', formValue.email);
+      formData.append('phone', formValue.phoneNumber);
+      if (this.selectedFile instanceof File) {
+        formData.append('avatar', this.selectedFile);
+      }
+
+      this.postAgents(formData);
+      this.addAgentForm.reset();
+      this.selectedFile = null;
+      this.previewUrl = null;
+      this.modalService.closeModal();
+    
     } else {
-      Object.keys(this.addAgentForm.controls).forEach(key => {
-        const control = this.addAgentForm.get(key);
-        control?.markAsTouched();
-      });
+      this.markFormGroupTouched(this.addAgentForm);
     }
   }
 
-  onCancel() {
-    this.closeModal();
-    const modalElement = this.elementRef.nativeElement.querySelector('#addAgentModal');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.hide();
-    }
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
-
+  
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
+      this.selectedFile = file;
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrl = reader.result;
@@ -68,8 +87,25 @@ export class SharedModalComponent implements AfterViewInit {
     }
   }
 
+  onCancel() {
+    this.modalService.closeModal();
+  }
+
+
   removeImage(event: Event): void {
     event.preventDefault();
     this.previewUrl = null;
+    this.selectedFile = null;
+  }
+
+  postAgents(agentData: FormData): void {
+    this.APIServices.postAgents(agentData).subscribe(
+      response => {
+        console.log("Agent added successfully", response);
+      },
+      error => {
+        console.error("Error adding agent", error);
+      }
+    );
   }
 }

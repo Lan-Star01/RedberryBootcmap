@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BackendAPIService } from '../../backend-api.service';
+import { BackendAPIService, City, Region } from '../../backend-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import bootstrap from '../../../../main.server';
 import { SharedModalComponent } from "../../shared-modal/shared-modal.component";
+import { SharedModalService } from '../../services/shared-modal.service';
 
 @Component({
   selector: 'app-main-listing-page',
@@ -16,11 +17,12 @@ import { SharedModalComponent } from "../../shared-modal/shared-modal.component"
 })
 export class MainListingPageComponent implements OnInit{
 
-  constructor(private fb: FormBuilder, private router: Router, private APIServices: BackendAPIService) {
+  constructor(private fb: FormBuilder, private router: Router, private APIServices: BackendAPIService, public modalService: SharedModalService) {
   }
 
-  regions: any[] = [];
-  cities: any[] = [];
+  isModalOpen$ = this.modalService.isOpen$;
+  regions: Region[] = [];
+  cities: City[] = [];
   selectedRegionIds: number[] = [];
   realEstates: any[] = [];
 
@@ -40,11 +42,7 @@ export class MainListingPageComponent implements OnInit{
   @ViewChild('addAgentModal') modalElement!: ElementRef;
 
   openModal() {
-    const modalElement = document.getElementById('addAgentModal');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
-    }
+    this.modalService.openModal('main');
   }
 
   closeModal() {

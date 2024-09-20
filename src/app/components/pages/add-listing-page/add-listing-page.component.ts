@@ -1,41 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BackendAPIService } from '../../backend-api.service';
+import { Agent, BackendAPIService, City, Region } from '../../backend-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
-
-interface Region {
-  id: number;
-  name: string;
-}
-
-interface City {
-  id: number;
-  region_id: number;
-  name: string;
-}
-
-interface Agent {
-  id: number;
-  name: string;
-  surname: string;
-  avatar: string;
-}
+import { SharedModalService } from '../../services/shared-modal.service';
+import { SharedModalComponent } from "../../shared-modal/shared-modal.component";
 
 @Component({
   selector: 'app-add-listing-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, SharedModalComponent],
   templateUrl: './add-listing-page.component.html',
   styleUrl: './add-listing-page.component.css'
 })
 export class AddListingPageComponent implements OnInit {
-  constructor(private fb: FormBuilder, private APIServices: BackendAPIService, private router: Router) {
+  constructor(private fb: FormBuilder, private APIServices: BackendAPIService, private router: Router, private modalService: SharedModalService) {
     this.myForm();
   }
   
-  
+  isModalOpen$ = this.modalService.isOpen$;
   regions: Region[] = [];
   cities: City[] = [];
   filteredCities: City[] = [];
@@ -77,6 +61,10 @@ export class AddListingPageComponent implements OnInit {
         control?.markAsTouched();
       });
     }
+  }
+
+  openModal() {
+    this.modalService.openModal('add-listing');
   }
 
   navigateToMainPage() {

@@ -33,7 +33,7 @@
     align-items: center;
     width: 100%;
     height: 120px;
-    border: 1px dashed #2D3648;
+    border: 2px dashed #2D3648;
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -90,4 +90,8 @@
 
 .add-agent-title-container, .add-listing-title-container {
     text-align: center;
+}
+
+.was-validated .form-control:invalid, .form-control.is-invalid {
+    background-image: none;
 }
