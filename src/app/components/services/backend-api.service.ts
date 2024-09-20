@@ -52,6 +52,10 @@ export class BackendAPIService {
     return this.http.get(`${this.apiUrl}/real-estates/${id}`, { headers: this.headers })  
   }
 
+  deleteRealEstateById(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/real-estates/${id}`, { headers: this.headers });
+  }
+
 }
 
 // interfaces

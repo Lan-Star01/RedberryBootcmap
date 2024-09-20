@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackendAPIService, RealEstate } from '../../services/backend-api.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import bootstrap from '../../../../main.server';
 
 @Component({
   selector: 'app-apartment-details',
@@ -16,6 +17,9 @@ export class ApartmentDetailsComponent implements OnInit {
   apartmentId!: string;
   realEstates: RealEstate | null = null;
   avatar: string | undefined
+  delApartmentId!: number
+
+  @ViewChild('checkModal') checkModal!: ElementRef;
 
   constructor(private route: ActivatedRoute, private router: Router, private APIServices: BackendAPIService,) {}
 
@@ -43,6 +47,31 @@ export class ApartmentDetailsComponent implements OnInit {
 
   navigateToMainPage() {
     this.router.navigate(['/']);
+  }
+
+  deleteRealEstateCheck(id: number) {
+    this.delApartmentId = id
+    const modalElement = document.getElementById('checkModal');
+    if (modalElement) {
+      modalElement.setAttribute('data-bs-toggle', 'modal');
+      modalElement.setAttribute('data-bs-target', '#checkModal');
+      const modalTrigger = new Event('click');
+      modalElement.dispatchEvent(modalTrigger);
+    }
+  }
+
+  deleteRealEstate(): void {
+    let id = this.delApartmentId
+    this.APIServices.deleteRealEstateById(id).subscribe(
+      () => {
+        console.log('Real estate deleted successfully');
+        //this.realEstates?.id !== id;
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        console.error('Error deleting real estate:', error);
+      }
+    );
   }
 
 }

@@ -95,6 +95,12 @@
     height: 34px;
 }
 
+.del-apt:hover, .del-apt:active {
+    background-color: #808A93;
+    color: white;
+}
+
+
 .agent-info {
     display: grid;
     border: 1px solid #dbdbdb;
@@ -201,4 +207,32 @@
     font-weight: 500;
     font-size: 32px;
     margin-bottom: 2.5rem;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding: 20px 28px 20px 0px;
+}
+
+.modal-container {
+    display: grid;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+    padding-bottom: 55px;
+}
+
+.btn-container {
+    display: flex;
+    gap: 20px;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #2D3648;
+}
+
+.modal-content {
+    border-radius: 20px;
 }

@@ -68,7 +68,7 @@
                               <span>{{realEstates.agent.phone}}</span>
                       </div>
                   </div>
-                  <button type="button" class="btn del-apt">ლისტინგის წაშლა</button>
+                  <button type="button" class="btn del-apt" (click)="deleteRealEstateCheck(realEstates.id)">ლისტინგის წაშლა</button>
               </div>
           </div>
       </div>
@@ -309,5 +309,27 @@
           </button>
       </div>
   </section>
+</div>
+
+
+<div class="modal fade checkModal" id="checkModal" tabindex="-1" role="dialog" aria-labelledby="checkModal" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-container">
+          <div class="modal-title-container">
+            <p class="modal-title">გსურთ წაშალოთ ლისტინგი?</p>
+          </div>
+          <div class="btn-container">
+            <button type="button" class="btn cancel orange-line-btn" data-bs-dismiss="modal">გაუქმება</button>
+            <button type="button" class="btn add-listing orange-btn" (click)="deleteRealEstate()">დადასტურება</button>
+          </div>      
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
     
