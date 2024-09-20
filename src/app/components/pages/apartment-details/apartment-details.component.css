@@ -114,6 +114,7 @@
     width: 72px;
     height: 72px;
     border-radius: 100px;
+    object-fit: cover;
 }
 
 .agent-identifier p, .price {
@@ -157,6 +158,7 @@
     height: 307px;
     width: 384px;
     border-radius: 14px;
+    object-fit: cover;
 }
 .card-body {
     border-radius: 0px 0px 14px 14px !important;

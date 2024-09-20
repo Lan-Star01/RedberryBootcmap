@@ -47,17 +47,16 @@ export class BackendAPIService {
   postRealEstates(body: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/real-estates`, body, { headers: this.headers });
   }
+
+  getRealEstateById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/real-estates/${id}`, { headers: this.headers })  
+  }
+
 }
 
 // interfaces
 export interface Region {
   id: number;
-  name: string;
-}
-
-export interface City {
-  id: number;
-  region_id: number;
   name: string;
 }
 
@@ -74,5 +73,28 @@ export interface AgentBodyParameters {
   email: string;
   phone: string;
   avatar: any;
+}
+
+export interface RealEstate {
+  id: number;
+  address: string;
+  zip_code: string;
+  price: number;
+  area: number;
+  bedrooms: number;
+  is_rental: number;
+  city_id: number;
+  description: string;
+  created_at: string;
+  city: City;
+  agent_id: number;
+  agent: AgentBodyParameters;
+}
+
+export interface City {
+  id: number;
+  name: string;
+  region_id: number;
+  region: Region;
 }
 

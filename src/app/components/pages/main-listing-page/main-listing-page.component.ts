@@ -31,8 +31,8 @@ export class MainListingPageComponent implements OnInit{
     this.getRealEstates();
   }
 
-  navigateToApartmentDetails(apartmentId: string) {
-    this.router.navigate(['/apartment', apartmentId]);
+  navigateToApartmentDetails(apartmentId: string, imageUrl: string) {
+    this.router.navigate(['/apartment', apartmentId], { queryParams: { img: imageUrl } });
   }
 
   navigateToAddListing() {
