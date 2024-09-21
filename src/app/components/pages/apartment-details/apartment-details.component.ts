@@ -16,8 +16,15 @@ export class ApartmentDetailsComponent implements OnInit {
 
   apartmentId!: string;
   realEstates: RealEstate | null = null;
+  allRealEstates: any[] = [];
+  filteredRealEstates: any[] = [];
   avatar: string | undefined
   delApartmentId!: number
+  transform = 'translateX(0)';
+  currentIndex = 0;
+  visibleItems = 4;
+  totalItems: number = 0;
+  
 
   @ViewChild('checkModal') checkModal!: ElementRef;
 
@@ -32,6 +39,9 @@ export class ApartmentDetailsComponent implements OnInit {
     this.route.queryParams.subscribe(queryParams => {
       this.avatar = queryParams['img'];
     });
+
+    //this.getRealEstates();
+
   }
 
   getRealEstateById(id: number): void {
@@ -39,6 +49,7 @@ export class ApartmentDetailsComponent implements OnInit {
       (data: RealEstate) => {
         console.log(data)
         this.realEstates = data;
+        this.getRealEstates();
       },(error) => {
         console.error('Error fetching real estates:', error);
       }
@@ -72,4 +83,42 @@ export class ApartmentDetailsComponent implements OnInit {
     );
   }
 
+  //get realestates 
+  getRealEstates(): void {
+    this.APIServices.getRealEstates().subscribe(
+      (data) => {
+        this.allRealEstates = data;
+        this.totalItems = this.allRealEstates.length;
+
+        if (this.realEstates?.city?.region_id) {
+          this.filteredRealEstates = this.allRealEstates.filter(apartment => 
+            apartment.city.region_id === this.realEstates?.city.region_id && apartment.id !== this.realEstates?.id
+          );
+        }
+      }
+    )
+  }
+
+  prev() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    } else {
+      this.currentIndex = Math.max(0, this.totalItems - this.visibleItems);
+    }
+    this.updateTransform();
+  }
+
+  next() {
+    if (this.currentIndex < this.totalItems - this.visibleItems) {
+      this.currentIndex++;
+    } else {
+      this.currentIndex = 0;
+    }
+    this.updateTransform();
+  }
+
+  updateTransform() {
+    const width = (100 / this.visibleItems) * this.currentIndex;
+    document.querySelector('.carousel')?.setAttribute('style', `transform: translateX(-${width}%); transition: transform 0.5s ease;`);
+  }
 }

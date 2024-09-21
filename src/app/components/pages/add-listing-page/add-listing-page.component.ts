@@ -202,6 +202,7 @@ export class AddListingPageComponent implements OnInit {
         this.selectedRegion = null;
         this.selectedCity = null;
         this.selectedAgent = null;
+        this.router.navigate(['/']);
       },
       error => {
         console.error("Error adding agent", error);

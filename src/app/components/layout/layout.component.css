@@ -1,4 +1,5 @@
 .main {
     height: 980px;
-    padding: 70px 162px 0px;
+    padding: 70px 162px 25px;
+    overflow: auto;
 }

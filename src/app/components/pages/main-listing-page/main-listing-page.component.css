@@ -182,12 +182,14 @@
     padding-top: 30px;
     display: grid;
     grid-template-columns: auto auto auto auto;
+    row-gap: 28px;
 }
 
 .apartament-card {
     box-shadow: 5px 5px 12px 0px #02152614;
     width: 384px;
     border-radius: 14px;
+    position: relative;
 }
 
 .apartament-card img {

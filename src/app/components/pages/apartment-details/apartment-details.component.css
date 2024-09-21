@@ -1,9 +1,10 @@
-.apartment-details-main-container {
+/* .apartment-details-main-container {
     height: 1665px;
-}
+} */
 
 #apartmentsInSimilarLocation {
     margin-top: 90px;
+    margin-bottom: 13%;
 }
 .return-back-btn {
     color: #021526;
@@ -59,7 +60,7 @@
     display: grid;
     padding: 30px 0px;
     height: 714px;
-    gap: 22px;
+    gap: 36px;
 }
 
 .apt-main-details {
@@ -162,8 +163,6 @@
     border-radius: 14px 14px 0px 0px !important;
     width: 384px;
     height: 307px;
-    width: 384px;
-    border-radius: 14px;
     object-fit: cover;
 }
 .card-body {
@@ -194,13 +193,6 @@
 
 .apt-info {
     gap: 32px;
-}
-
-.carousel-item {
-    display: flex;
-    width: 1596px;
-    height: 455px;
-    gap: 20px;
 }
 
 .carousel-title {
@@ -236,3 +228,65 @@
 .modal-content {
     border-radius: 20px;
 }
+
+.apartment-img {
+    border-radius: 14px 14px 0px 0px !important;
+    width: 839px;
+    height: 670px;
+    object-fit: cover;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .carousel-wrapper {
+    display: flex;
+    width: 100%;
+  }
+  
+  .carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .carousel-item {
+    display: flex;
+    width: 1596px;
+    height: 455px;
+    gap: 15px;
+    /* min-width: 25%; */
+    padding: 0 10px;
+}
+  
+  .carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ffffffdb;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 100%;
+  }
+  
+  .prev {
+    left: 0;
+  }
+  
+  .next {
+    right: 0;
+  }
+  
+  .apartament-card {
+    box-shadow: none !important;
+  }
+  
+  .img-container {
+    position: relative;
+  }
