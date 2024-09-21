@@ -47,7 +47,6 @@ export class ApartmentDetailsComponent implements OnInit {
   getRealEstateById(id: number): void {
     this.APIServices.getRealEstateById(id).subscribe(
       (data: RealEstate) => {
-        console.log(data)
         this.realEstates = data;
         this.getRealEstates();
       },(error) => {

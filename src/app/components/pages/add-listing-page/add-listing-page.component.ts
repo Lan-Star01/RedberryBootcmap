@@ -55,7 +55,6 @@ export class AddListingPageComponent implements OnInit {
   
   onSubmit() {
     if (this.addListingForm.valid) {
-      console.log(this.addListingForm.value);
       const formValue = this.addListingForm.value;
       const formData = new FormData();
       let isRental: number;
@@ -133,7 +132,6 @@ export class AddListingPageComponent implements OnInit {
     this.APIServices.getRegions().subscribe(
       (data) => {
         this.regions = data;
-        console.log(data)
       }
       ,
       (error) => {
@@ -146,7 +144,6 @@ export class AddListingPageComponent implements OnInit {
     this.APIServices.getCities().subscribe(
       (data) => {
         this.cities = data;
-        console.log(data)
       },
       (error) => {
         console.error('Error fetching regions:', error);
@@ -184,7 +181,6 @@ export class AddListingPageComponent implements OnInit {
     this.APIServices.getAgents().subscribe (
       (data) => {
         this.agents = data;
-        console.log(data)
       },
       (error) => {
         console.error('Error fetching regions:', error);
@@ -195,7 +191,6 @@ export class AddListingPageComponent implements OnInit {
   postRealEstates(realEstatesData: FormData): void {
     this.APIServices.postRealEstates(realEstatesData).subscribe (
       response => {
-        console.log("Agent added successfully", response);
         this.addListingForm.reset();
         this.selectedFile = null;
         this.previewUrl = null;
