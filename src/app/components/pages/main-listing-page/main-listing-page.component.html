@@ -56,7 +56,7 @@
                             <div class="price-range-title">მინ. ფასი</div>
                             <div class="price-range-list-container">
                               <li *ngFor="let price of priceOptions; let i = index" (click)="handleRangeClick(price, true, true, $event)">
-                                {{price}} ₾
+                                {{price | number:'1.0-0'}} ₾
                               </li>
                             </div>
                           </div>
@@ -77,14 +77,14 @@
                             <div class="price-range-title">მაქს. ფასი</div>
                             <div class="price-range-list-container">
                               <li *ngFor="let price of priceOptions; let i = index" (click)="handleRangeClick(price, false, true, $event)">
-                                {{price}} ₾
+                                {{price | number:'1.0-0'}} ₾
                               </li>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="filter-by-price-btn filter-btn">
-                        <button type="button" class="btn choose-btn" (click)="setPriceRange(minPricePlaceholder, maxPricePlaceholder); confirmPriceSelection();">არჩევა</button>
+                        <button type="button" class="btn choose-btn" (click)="confirmPriceSelection();">არჩევა</button>
                       </div>
                     </div>
                 </div>
@@ -209,7 +209,7 @@
         <span class="transaction-type"><p>{{ apartment.is_rental === 1 ? 'ქირავდება' : 'იყიდება' }}</p></span>
         <img [src]="apartment.image" class="card-img-top" alt="Apartment image" sizes="(max-width: 300px) 100vw, 300px">
         <div class="card-body">
-          <h5>{{apartment.price}} ₾</h5>
+          <h5>{{apartment.price | customNumberFormat}} ₾</h5>
           <div class="adress d-flex gap-1">
             <i class="bi bi-geo-alt-fill" style="color: #02152680;"></i>
             <p>{{apartment.city.name}}, {{apartment.address}}</p>

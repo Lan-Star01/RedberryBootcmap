@@ -18,7 +18,7 @@
                   </div>
               </div>
               <div class="apartment-details">
-                  <p class="price">{{realEstates.price}} ₾</p>
+                  <p class="price">{{realEstates.price | customCommaSpaceFormat}} ₾</p>
                   <div class="apt-main-details">
                       <li>
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +85,7 @@
               <span class="transaction-type"><p>{{ realEstate.is_rental === 1 ? 'ქირავდება' : 'იყიდება' }}</p></span>
               <img [src]="realEstate.image" class="card-img-top" alt="Real Estate Image">
               <div class="card-body">
-                <h5>{{ realEstate.price }} ₾</h5>
+                <h5>{{ realEstate.price | customNumberFormat}} ₾</h5>
                 <div class="adress d-flex gap-1">
                   <i class="bi bi-geo-alt-fill"></i>
                   <p>{{ realEstate.address }}</p>

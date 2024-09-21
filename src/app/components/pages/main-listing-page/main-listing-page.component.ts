@@ -7,11 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import bootstrap from '../../../../main.server';
 import { SharedModalComponent } from "../../shared-modal/shared-modal.component";
 import { SharedModalService } from '../../services/shared-modal.service';
+import { CustomNumberFormatPipe } from '../../custom-pipes/custom-number-format.pipe';
 
 @Component({
   selector: 'app-main-listing-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, SharedModalComponent, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, SharedModalComponent, FormsModule, CustomNumberFormatPipe],
   templateUrl: './main-listing-page.component.html',
   styleUrl: './main-listing-page.component.css'
 })
@@ -283,17 +284,37 @@ export class MainListingPageComponent implements OnInit{
   }
   
 
-  confirmPriceSelection(): void {
-    this.confirmedMinPrice = this.minPrice;
-    this.confirmedMaxPrice = this.maxPrice;
+  // confirmPriceSelection(): void {
+  //   this.confirmedMinPrice = this.minPrice;
+  //   this.confirmedMaxPrice = this.maxPrice;
     
+  
+  //   this.filterListings();
+  //   this.saveFilterState();
+
+  //   this.minPricePlaceholder = '';
+  //   this.maxPricePlaceholder = '';
+  // }
+
+  confirmPriceSelection(): void {
+    const cleanInput = (value: string): number => {
+      const cleanedValue = value.replace(/[^0-9.]/g, '');
+      return parseFloat(cleanedValue) || 0;
+    };
+  
+    this.confirmedMinPrice = cleanInput(this.minPricePlaceholder);
+    this.confirmedMaxPrice = cleanInput(this.maxPricePlaceholder);
+  
+    this.minPrice = this.confirmedMinPrice;
+    this.maxPrice = this.confirmedMaxPrice;
   
     this.filterListings();
     this.saveFilterState();
-
+  
     this.minPricePlaceholder = '';
     this.maxPricePlaceholder = '';
   }
+  
   
 
   confirmAreaSelection(): void {
