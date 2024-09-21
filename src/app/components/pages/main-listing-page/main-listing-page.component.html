@@ -16,15 +16,16 @@
                             type="checkbox" 
                             [value]="region.id" 
                             [id]="'checkbox-' + region.id"
+                            [checked]="selectedRegionIds.includes(region.id)"
                             (change)="onCheckboxChange($event)"
                           >
-                          <label class="form-check-label" for="flexCheckDefault">
+                          <label class="form-check-label" for="flexCheckDefault" for="checkbox-{{region.id}}">
                              {{region.name}}
                           </label>
                         </div>
                       </div>
                       <div class="filter-by-region-btn filter-btn">
-                        <button type="button" class="btn choose-btn firaGO-5">არჩევა</button>
+                        <button type="button" class="btn choose-btn firaGO-5" (click)="confirmRegionSelection()">არჩევა</button>
                       </div>
                     </div>
                 </div>
@@ -38,40 +39,52 @@
                       <p class="price-title">ფასის მიხედვით</p>
                       <div class="min_max-price-container">
                         <div class="min-price price-container">
-                          <div class="input-group min-price-input price-input">
-                            <input type="text" class="form-control" placeholder="დან">
-                            <span class="input-group-text">₾</span>
+                          <div class="input-group min-price-input price-input" [ngClass]="{'is-invalid': error}">
+                            <input 
+                              type="text" 
+                              class="form-control" 
+                              placeholder="დან" 
+                              [(ngModel)]="minPricePlaceholder"
+                              (ngModelChange)="handlePriceInputChange($event, true)"
+                              [ngStyle]="{'border-color': error ? 'red' : ''}"
+                            >
+                            
+                            <span class="input-group-text" [ngStyle]="{'border-color': error ? 'red' : ''}">₾</span>
+                            <div *ngIf="error" class="error-message" style="color: red; margin-top: 5px; border-radius: 0px 5px 5px 0px !important;">{{error}}</div>
                           </div>
                           <div class="price-range-container">
                             <div class="price-range-title">მინ. ფასი</div>
                             <div class="price-range-list-container">
-                              <li>50,500 ₾</li>
-                              <li>100,500 ₾</li>
-                              <li>150,500 ₾</li>
-                              <li>200,500 ₾</li>
-                              <li>30,500 ₾</li>
+                              <li *ngFor="let price of priceOptions; let i = index" (click)="handleRangeClick(price, true, true, $event)">
+                                {{price}} ₾
+                              </li>
                             </div>
                           </div>
                         </div>
                         <div class="max-price price-container">
-                          <div class="input-group max-price-input price-input">
-                            <input type="text" class="form-control" placeholder="დან">
-                            <span class="input-group-text">₾</span>
+                          <div class="input-group max-price-input price-input" [ngClass]="{'is-invalid': error}">
+                            <input 
+                              type="text" 
+                              class="form-control" 
+                              placeholder="მდე" 
+                              [(ngModel)]="maxPricePlaceholder"
+                              (ngModelChange)="handlePriceInputChange($event, false)"
+                              [ngStyle]="{'border-color': error ? 'red' : ''}"
+                            >
+                            <span class="input-group-text" [ngStyle]="{'border-color': error ? 'red' : ''}">₾</span>
                           </div>
                           <div class="price-range-container">
                             <div class="price-range-title">მაქს. ფასი</div>
                             <div class="price-range-list-container">
-                              <li>50,500 ₾</li>
-                              <li>100,500 ₾</li>
-                              <li>150,500 ₾</li>
-                              <li>200,500 ₾</li>
-                              <li>30,500 ₾</li>
+                              <li *ngFor="let price of priceOptions; let i = index" (click)="handleRangeClick(price, false, true, $event)">
+                                {{price}} ₾
+                              </li>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="filter-by-price-btn filter-btn">
-                        <button type="button" class="btn choose-btn">არჩევა</button>
+                        <button type="button" class="btn choose-btn" (click)="setPriceRange(minPricePlaceholder, maxPricePlaceholder); confirmPriceSelection();">არჩევა</button>
                       </div>
                     </div>
                 </div>
@@ -79,46 +92,57 @@
             <div class="area-container">
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle filtering-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  საფასო კატეგორია
+                  ფართობი
                 </button>
                 <div class="dropdown-menu price-dropdown-menu">
                   <p class="area-title">ფართობის მიხედვით</p>
                   <div class="min_max-area-container">
                     <div class="min-area area-container">
-                      <div class="input-group min-area-input area-input">
-                        <input type="text" class="form-control" placeholder="დან">
-                        <span class="input-group-text">მ²</span>
+                      <div class="input-group min-area-input area-input" [ngClass]="{'is-invalid': error}" >
+                        <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="დან" 
+                          [(ngModel)]="minAreaPlaceholder"
+                          (ngModelChange)="handleAreaInputChange($event, true)"
+                          [ngStyle]="{'border-color': error ? 'red' : ''}"
+                        >
+                        <span class="input-group-text" [ngStyle]="{'border-color': error ? 'red' : ''}">მ²</span>
+                        <div *ngIf="error" class="error-message" style="color: red; margin-top: 5px; border-radius: 0px 5px 5px 0px !important;">{{error}}</div>
                       </div>
                       <div class="area-range-container">
                         <div class="area-range-title">მინ. მ²</div>
                         <div class="area-range-list-container">
-                          <li>50,500 მ²</li>
-                          <li>100,500 მ²</li>
-                          <li>150,500 მ²</li>
-                          <li>200,500 მ²</li>
-                          <li>30,500 მ²</li>
+                          <li *ngFor="let area of areaOptions; let i = index" (click)="handleRangeClick(area, true, false, $event)">
+                            {{area}} მ²
+                          </li>
                         </div>
                       </div>
                     </div>
                     <div class="max-area area-container">
-                      <div class="input-group max-area-input area-input">
-                        <input type="text" class="form-control" placeholder="დან">
-                        <span class="input-group-text">მ²</span>
+                      <div class="input-group max-area-input area-input" [ngClass]="{'is-invalid': error}">
+                        <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="მდე" 
+                          [(ngModel)]="maxAreaPlaceholder"
+                          (ngModelChange)="handleAreaInputChange($event, false)"
+                          [ngStyle]="{'border-color': error ? 'red' : ''}"
+                        >
+                        <span class="input-group-text" [ngStyle]="{'border-color': error ? 'red' : ''}">მ²</span>
                       </div>
                       <div class="area-range-container">
                         <div class="area-range-title">მაქს. მ²</div>
                         <div class="area-range-list-container">
-                          <li>50,500 მ²</li>
-                          <li>100,500 მ²</li>
-                          <li>150,500 მ²</li>
-                          <li>200,500 მ²</li>
-                          <li>30,500 მ²</li>
+                          <li *ngFor="let area of areaOptions; let i = index" (click)="handleRangeClick(area, false, false, $event)">
+                            {{area}} მ²
+                          </li>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="filter-by-area-btn filter-btn">
-                    <button type="button" class="btn choose-btn">არჩევა</button>
+                    <button type="button" class="btn choose-btn" (click)="setAreaRange(minAreaPlaceholder, maxAreaPlaceholder); confirmAreaSelection()">არჩევა</button>
                   </div>
                 </div>
             </div>
@@ -131,10 +155,15 @@
                     <div class="dropdown-menu rooms-dropdown-menu">
                       <p>საძინებლების რაოდენობა</p>
                       <div class="Quantitiy-of-rooms">
-                        <input class="form-control Quantitiy-of-rooms-input" type="text" placeholder="2">
+                        <input 
+                          class="form-control Quantitiy-of-rooms-input" 
+                          type="text"
+                          [(ngModel)]="bedroomCount"
+                          (ngModelChange)="saveFilterState()"
+                          #bedroomInput>
                       </div>
                       <div class="filter-by-rooms-btn filter-btn">
-                        <button type="button" class="btn choose-btn">არჩევა</button>
+                        <button type="button" class="btn choose-btn" (click)="setBedroomCount(bedroomInput.value); confirmBedroomSelection()">არჩევა</button>
                       </div>
                     </div>
                 </div>
@@ -148,9 +177,35 @@
         </div>
     </section>
 </div>
+<section id="filtered-section">
+  <div class="filtered-data-container d-flex mt-3">
+    <div class="filtered-data filtered-region" *ngFor="let region of confirmedRegionIds">
+      {{ getRegionName(region) }} <i class="bi bi-x" (click)="removeRegion(region)"></i>
+    </div>
+    <div class="filtered-data filtered-price" *ngIf="confirmedMinPrice || confirmedMaxPrice">
+      {{ confirmedMinPrice ? confirmedMinPrice + '₾' : '' }} 
+      {{ confirmedMinPrice && confirmedMaxPrice ? ' - ' : '' }}
+      {{ confirmedMaxPrice && confirmedMaxPrice !== 0 ? confirmedMaxPrice + '₾' : '' }}
+      <i class="bi bi-x" (click)="clearPriceFilters()"></i>
+    </div>
+    <div class="filtered-data filtered-area" *ngIf="confirmedMinArea || confirmedMaxArea">
+      {{ confirmedMinArea ? confirmedMinArea + ' მ² ' : '' }} 
+      {{ confirmedMinArea && confirmedMaxArea ? ' - ' : '' }}
+      {{ confirmedMaxArea && confirmedMaxArea !== 0 ? confirmedMaxArea + ' მ² ' : '' }}
+      <i class="bi bi-x" (click)="clearAreaFilters()"></i>
+    </div>    
+    <div class="filtered-data filtered-room" *ngIf="confirmedBedroomCount">
+      {{ confirmedBedroomCount }} <i class="bi bi-x" (click)="clearBedroomFilters()"></i>
+    </div>
+    <div class="clear" *ngIf="isAnyFilterActive()" (click)="clearAllFilters()">
+      გასუფთავება
+    </div>
+  </div>
+</section>
+
 <section id="addedApartments-section">
     <div class="added-apartments">
-      <div class="apartament-card" *ngFor="let apartment of realEstates" [attr.data-id]="apartment.id" (click)="navigateToApartmentDetails(apartment.id, apartment.image)">
+      <div class="apartament-card" *ngFor="let apartment of filteredRealEstates" [attr.data-id]="apartment.id" (click)="navigateToApartmentDetails(apartment.id, apartment.image)">
         <span class="transaction-type"><p>{{ apartment.is_rental === 1 ? 'ქირავდება' : 'იყიდება' }}</p></span>
         <img [src]="apartment.image" class="card-img-top" alt="Apartment image" sizes="(max-width: 300px) 100vw, 300px">
         <div class="card-body">

@@ -64,8 +64,6 @@ export class ApartmentDetailsComponent implements OnInit {
     let id = this.delApartmentId
     this.APIServices.deleteRealEstateById(id).subscribe(
       () => {
-        console.log('Real estate deleted successfully');
-        //this.realEstates?.id !== id;
         this.router.navigate(['/']);
       },
       (error) => {

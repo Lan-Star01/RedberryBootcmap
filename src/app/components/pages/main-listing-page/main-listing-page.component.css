@@ -8,8 +8,7 @@
     padding: 6px;
     border: 1px solid #DBDBDB;
     border-radius: 10px;
-    /* gap: 24px; */
-    gap: 10px;
+    gap: 24px;
     width: 785px;
     height: 47px;
 }
@@ -157,6 +156,7 @@
 .input-group-text {
     background-color: transparent;
     border-left: none;
+    border-radius: 0px 5px 5px 0px !important;
 }
 
 .price-input input, .area-input input {
@@ -261,4 +261,33 @@
 
 .modal-body {
     padding: 90px 30px;
+}
+
+.error-message {
+    margin-top: 5px;
+    font-size: 12px;
+    position: absolute;
+    top: 41px;
+    width: 205px;
+}
+
+.filtered-data-container {
+    align-items: center;
+    gap: 16px;
+}
+
+.filtered-data {
+    border-radius: 43px;
+    padding: 6px 10px;
+    gap: 4px;
+    display: flex;
+    border: 1px solid #DBDBDB;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(2, 21, 38, 0.8);;
+}
+
+.filtered-data-container .clear {
+    font-weight: 500;
+    font-size: 14px;
 }
