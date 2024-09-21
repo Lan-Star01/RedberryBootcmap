@@ -120,4 +120,10 @@ export class ApartmentDetailsComponent implements OnInit {
     const width = (100 / this.visibleItems) * this.currentIndex;
     document.querySelector('.carousel')?.setAttribute('style', `transform: translateX(-${width}%); transition: transform 0.5s ease;`);
   }
+
+  selectApartment(id: number, image:string): void {
+    this.getRealEstateById(id);
+    this.avatar = image;
+  }
+  
 }

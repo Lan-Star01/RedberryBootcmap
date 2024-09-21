@@ -81,7 +81,7 @@
       <div class="carousel-wrapper">
         <div class="carousel" [style.transform]="transform">
           <div  class="carousel-item">
-            <div class="apartament-card" *ngFor="let realEstate of filteredRealEstates" >
+            <div class="apartament-card" *ngFor="let realEstate of filteredRealEstates" (click)="selectApartment(realEstate.id, realEstate.image)">
               <span class="transaction-type"><p>{{ realEstate.is_rental === 1 ? 'ქირავდება' : 'იყიდება' }}</p></span>
               <img [src]="realEstate.image" class="card-img-top" alt="Real Estate Image">
               <div class="card-body">

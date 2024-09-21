@@ -16,7 +16,6 @@ import { SharedModalService } from '../services/shared-modal.service';
 export class SharedModalComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(private fb: FormBuilder, private APIServices: BackendAPIService, private renderer: Renderer2, 
               private el: ElementRef, public modalService: SharedModalService) {
-    //this.myForm();
   }
   
   addAgentForm!: FormGroup;
