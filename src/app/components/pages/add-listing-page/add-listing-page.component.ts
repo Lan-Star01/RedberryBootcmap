@@ -30,6 +30,9 @@ export class AddListingPageComponent implements OnInit {
   addListingForm!: FormGroup;
   previewUrl: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
+  isRegionSelected = true;
+  isCitySelected = true;
+  isAgentSelected = true;
 
   ngOnInit(): void {
     this.getRegions();
@@ -43,21 +46,32 @@ export class AddListingPageComponent implements OnInit {
     this.modalService.agentAdded$.subscribe(() => {
       this.getAgents();
     });
+    this.addListingForm.get('forSale')?.valueChanges.subscribe(checked => {
+      if (checked) {
+        this.addListingForm.get('forRent')?.setValue(false);
+      }
+    });
+  
+    this.addListingForm.get('forRent')?.valueChanges.subscribe(checked => {
+      if (checked) {
+        this.addListingForm.get('forSale')?.setValue(false);
+      }
+    });
   } 
   
   myForm() {
     this.addListingForm = this.fb.group({
-      forSale: [false],
+      forSale: [true],
       forRent: [false],
       address: ['', [Validators.required, Validators.minLength(2)]],
       postalCode: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      region: [''],
-      city: [''],
+      region: ['', Validators.required],
+      city: ['', Validators.required],
       price: [null, [Validators.required, Validators.min(0)]],
       area: [null, [Validators.required, Validators.min(0)]],
       numberOfBedrooms: [null, [Validators.required, Validators.min(0)]],
       description: ['', [Validators.required, Validators.minLength(5)]],
-      agent: ['']
+      agent: ['', Validators.required]
     })
   }
   
@@ -66,6 +80,11 @@ export class AddListingPageComponent implements OnInit {
       const formValue = this.addListingForm.value;
       const formData = new FormData();
       let isRental: number;
+
+      this.invalidDropdowns();
+      if (!this.isRegionSelected || !this.isCitySelected || !this.isAgentSelected) {
+        return;
+      }
 
       if (formValue.forRent) {
           isRental = 1;
@@ -88,11 +107,8 @@ export class AddListingPageComponent implements OnInit {
       formData.append('bedrooms', formValue.numberOfBedrooms);
       formData.append('is_rental', isRental.toString());
       formData.append('agent_id', this.selectedAgent?.id?.toString() ?? '');
-      
 
       this.postRealEstates(formData);
-      
-      
 
     } else {
       this.markFormGroupTouched(this.addListingForm);
@@ -102,10 +118,10 @@ export class AddListingPageComponent implements OnInit {
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();
-
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
       }
+      this.invalidDropdowns();
     });
   }
 
@@ -114,10 +130,18 @@ export class AddListingPageComponent implements OnInit {
   }
 
   navigateToMainPage() {
-    localStorage.removeItem('listingFormData');
-    localStorage.removeItem('selectedFileName');
-    localStorage.removeItem('selectedAgent');
+    this.addListingForm.reset();
+    this.selectedFile = null;
+    this.previewUrl = null;
+    this.selectedRegion = null;
+    this.selectedCity = null;
+    this.selectedAgent = null;
+    
     this.router.navigate(['/']);
+
+    localStorage.removeItem('listingFormData');
+    localStorage.removeItem('selectedAgent');
+
   }
   
 
@@ -165,6 +189,7 @@ export class AddListingPageComponent implements OnInit {
   selectRegion(region: Region) {
     this.selectedRegion = region;
     this.selectedCity = null;
+    this.isRegionSelected = true;
     this.updateCitiesForSelectedRegion();
   }
 
@@ -181,10 +206,12 @@ export class AddListingPageComponent implements OnInit {
 
   selectCity(city: City) {
     this.selectedCity = city;
+    this.isCitySelected = true;
   }
 
   selectAgent(agent: Agent) {
     this.selectedAgent = agent;
+    this.isAgentSelected = true;
     localStorage.setItem('selectedAgent', JSON.stringify(agent));
   }
 
@@ -259,5 +286,12 @@ export class AddListingPageComponent implements OnInit {
   
   onAgentAdded(): void {
     this.getAgents();
+  }
+
+  
+  invalidDropdowns() {
+    this.isRegionSelected = this.selectedRegion ? true : false;
+    this.isCitySelected = this.selectedCity ? true : false;
+    this.isAgentSelected = this.selectedAgent ? true : false;
   }
 }

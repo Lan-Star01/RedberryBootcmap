@@ -117,3 +117,7 @@
 .point.text-danger i {
   color: #F93B1D;;
 }
+
+.is-invalid {
+    border-color: #F93B1D !important;
+}

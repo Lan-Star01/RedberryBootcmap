@@ -44,7 +44,7 @@
             <div class="mb-3">
               <label for="region" class="form-label">რეგიონი</label>
               <div class="dropdown">
-                <button class="btn dropdown-toggle select-type-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn dropdown-toggle select-type-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="{'is-invalid': !isRegionSelected}">
                   {{ selectedRegion ? selectedRegion.name : 'რეგიონი' }}
                 </button>
                 <div class="dropdown-menu region-dropdown-menu select-type-dropdown-menu">
@@ -58,7 +58,7 @@
             <div class="mb-3">
               <label for="city" class="form-label">ქალაქი</label>
               <div class="dropdown">
-                <button class="btn dropdown-toggle select-type-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn dropdown-toggle select-type-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="{'is-invalid': !isCitySelected}">
                   {{ selectedCity ? selectedCity.name : 'ქალაქი' }}
                 </button>
                 <div class="dropdown-menu city-dropdown-menu select-type-dropdown-menu">
@@ -133,7 +133,7 @@
           <div class="mb-3 w-50">
             <label for="select-agent" class="form-label">აირჩიე</label>
             <div class="dropdown">
-              <button class="btn dropdown-toggle select-type-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn dropdown-toggle select-type-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" [ngClass]="{'is-invalid': !isAgentSelected}">
                 {{ selectedAgent ? selectedAgent.name + ' ' + selectedAgent.surname : 'აგენტი' }}
               </button>
               <div class="dropdown-menu agent-dropdown-menu select-type-dropdown-menu">
