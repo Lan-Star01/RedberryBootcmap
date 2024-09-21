@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AgentBodyParameters, BackendAPIService } from '../services/backend-api.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,11 +38,6 @@ export class SharedModalComponent implements AfterViewInit, OnDestroy, OnInit {
     const savedData = localStorage.getItem('addAgentForm');
     if (savedData) {
       this.addAgentForm.patchValue(JSON.parse(savedData));
-    }
-
-    const savedPreview = localStorage.getItem('selectedFilePreview');
-    if (savedPreview) {
-      this.previewUrlModal = savedPreview;
     }
 
     this.addAgentForm.valueChanges.subscribe(value => {
@@ -93,7 +88,6 @@ export class SharedModalComponent implements AfterViewInit, OnDestroy, OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrlModal = reader.result;
-        localStorage.setItem('selectedFilePreview', this.previewUrlModal as string);
       };
       reader.readAsDataURL(file);
     }
@@ -105,7 +99,6 @@ export class SharedModalComponent implements AfterViewInit, OnDestroy, OnInit {
     this.selectedFileModal = null;
     this.previewUrlModal = null;
     localStorage.removeItem('addAgentForm');
-    localStorage.removeItem('selectedFilePreview');
   }
 
   onClose() {
@@ -117,7 +110,6 @@ export class SharedModalComponent implements AfterViewInit, OnDestroy, OnInit {
     event.preventDefault();
     this.previewUrlModal = null;
     this.selectedFileModal = null;
-    localStorage.removeItem('selectedFilePreview');
   }
 
   postAgents(agentData: FormData): void {
@@ -126,10 +118,10 @@ export class SharedModalComponent implements AfterViewInit, OnDestroy, OnInit {
         this.addAgentForm.reset();
         this.selectedFileModal = null;
         this.previewUrlModal = null;
+        this.modalService.notifyAgentAdded()
         this.modalService.closeModal();
 
         localStorage.removeItem('addAgentForm');
-        localStorage.removeItem('selectedFilePreview');
       },
       error => {
         console.error("Error adding agent", error);

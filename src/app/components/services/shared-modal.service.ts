@@ -1,5 +1,5 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,11 @@ export class SharedModalService {
   private isOpenSubject = new BehaviorSubject<boolean>(false);
   private originComponentSubject = new BehaviorSubject<string>('');
   private renderer: Renderer2;
+  private agentAddedSource = new Subject<void>();
 
   isOpen$: Observable<boolean> = this.isOpenSubject.asObservable();
   originComponent$: Observable<string> = this.originComponentSubject.asObservable();
+  agentAdded$ = this.agentAddedSource.asObservable();
 
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
@@ -51,6 +53,10 @@ export class SharedModalService {
     if (backdrop) {
       this.renderer.removeChild(document.body, backdrop);
     }
+  }
+
+  notifyAgentAdded() {
+    this.agentAddedSource.next();
   }
   
 }

@@ -35,6 +35,14 @@ export class AddListingPageComponent implements OnInit {
     this.getRegions();
     this.getAgents();
     this.getCities();
+
+    this.loadFormDataFromLocalStorage();
+    this.addListingForm.valueChanges.subscribe(value => {
+      this.saveFormDataToLocalStorage(value);
+    });
+    this.modalService.agentAdded$.subscribe(() => {
+      this.getAgents();
+    });
   } 
   
   myForm() {
@@ -66,7 +74,7 @@ export class AddListingPageComponent implements OnInit {
       } else {
           isRental = -1;
       }
-      
+
       formData.append('address', formValue.address);
       if (this.selectedFile instanceof File) {
         formData.append('image', this.selectedFile);
@@ -106,6 +114,9 @@ export class AddListingPageComponent implements OnInit {
   }
 
   navigateToMainPage() {
+    localStorage.removeItem('listingFormData');
+    localStorage.removeItem('selectedFileName');
+    localStorage.removeItem('selectedAgent');
     this.router.navigate(['/']);
   }
   
@@ -174,6 +185,7 @@ export class AddListingPageComponent implements OnInit {
 
   selectAgent(agent: Agent) {
     this.selectedAgent = agent;
+    localStorage.setItem('selectedAgent', JSON.stringify(agent));
   }
 
   //get agents
@@ -197,11 +209,55 @@ export class AddListingPageComponent implements OnInit {
         this.selectedRegion = null;
         this.selectedCity = null;
         this.selectedAgent = null;
+
+        localStorage.removeItem('selectedAgent');
+        localStorage.removeItem('listingFormData');
+
         this.router.navigate(['/']);
       },
       error => {
         console.error("Error adding agent", error);
       }
     )
+  }
+
+  loadFormDataFromLocalStorage(): void {
+    const savedData = localStorage.getItem('listingFormData');
+    const savedAgent = localStorage.getItem('selectedAgent');
+    if (savedData) {
+      const formData = JSON.parse(savedData);
+  
+      this.addListingForm.patchValue(formData.formValue);
+  
+      this.selectedRegion = formData.selectedRegion;
+      this.selectedCity = formData.selectedCity;
+      this.selectedAgent = formData.selectedAgent;
+      this.previewUrl = formData.previewUrl;
+  
+      if (this.selectedRegion) {
+        this.updateCitiesForSelectedRegion();
+      }
+      if (savedAgent) {
+        this.selectedAgent = JSON.parse(savedAgent);
+      }
+
+    }
+  }
+
+
+  saveFormDataToLocalStorage(formValue: any): void {
+    const formData = {
+      formValue,
+      selectedRegion: this.selectedRegion,
+      selectedCity: this.selectedCity,
+      selectedAgent: this.selectedAgent,
+      previewUrl: this.previewUrl,
+    };
+  
+    localStorage.setItem('listingFormData', JSON.stringify(formData));
+  }
+  
+  onAgentAdded(): void {
+    this.getAgents();
   }
 }
